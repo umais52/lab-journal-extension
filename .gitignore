@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+venv/
+.env
+*.log
+
+# Project Specific
+backend/temp/*
+!backend/temp/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db

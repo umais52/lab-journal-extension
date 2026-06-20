@@ -1,0 +1,8 @@
+Flask>=3.0.3
+Flask-Cors>=4.0.1
+Werkzeug>=3.0.3
+PyPDF2>=3.0.1
+docx2pdf>=0.1.8
+comtypes>=1.4.1
+img2pdf>=0.5.1
+Pillow>=11.0.0

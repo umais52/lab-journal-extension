@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "LMS Lab Journal Compiler",
+  "version": "1.0",
+  "description": "Select LMS assignments, convert to PDF, and merge into a lab journal.",
+  "permissions": [
+    "downloads",
+    "storage",
+    "unlimitedStorage",
+    "scripting",
+    "activeTab",
+    "sidePanel",
+    "management"
+  ],
+  "host_permissions": [
+    "*://lms.bahria.edu.pk/*",
+    "http://127.0.0.1:5000/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://lms.bahria.edu.pk/*Assignments*",
+        "*://lms.bahria.edu.pk/*Assignment*",
+        "*://lms.bahria.edu.pk/*Lectures*",
+        "*://lms.bahria.edu.pk/*Lecture*"
+      ],
+      "js": [
+        "content-scripts/lms-config.js",
+        "content-scripts/lms-detector.js"
+      ]
+    }
+  ],
+  "side_panel": {
+    "default_path": "ui/sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Lab Journal Compiler"
+  }
+}

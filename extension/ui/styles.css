@@ -1,0 +1,336 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f3f4f6;
+    color: #1f2937;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5e7eb;
+    text-align: center;
+    color: #111827;
+}
+
+.actions-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    width: 100%;
+    padding: 14px;
+    font-size: 1.125rem;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(99, 102, 241, 0.5);
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+}
+
+.btn-danger {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.btn-danger:hover {
+    background-color: #fee2e2;
+}
+
+#clear-queue {
+    margin-left: auto;
+}
+
+.queue-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.queue-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #f3f4f6;
+    background: white;
+    transition: background-color 0.2s;
+}
+
+.queue-item:hover {
+    background-color: #f9fafb;
+}
+
+.queue-item:last-child {
+    border-bottom: none;
+}
+
+.sortable-ghost {
+    opacity: 0.3;
+    background-color: #e0e7ff;
+}
+
+.item-icon {
+    font-size: 1.75rem;
+    margin-right: 16px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.item-details {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.item-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+    color: #1f2937;
+}
+
+.item-status {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.status-queued { color: #9ca3af; }
+.status-downloading { color: #3b82f6; }
+.status-converting { color: #f59e0b; }
+.status-ready { color: #10b981; }
+.status-failed { color: #ef4444; }
+
+.drag-handle {
+    color: #cbd5e1;
+    cursor: grab;
+    padding: 0 8px;
+    font-size: 1.5rem;
+    transition: color 0.2s;
+}
+
+.drag-handle:hover {
+    color: #64748b;
+}
+
+.compile-section {
+    padding-top: 10px;
+}
+
+#compile-status {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-height: 20px;
+}
+
+.delete-item {
+    color: #ef4444;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 1.1rem;
+    margin-right: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.delete-item:hover {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* View Container */
+.view-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Leave room for bottom nav */
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Dashboard Cards */
+.cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.extension-card {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.extension-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    margin-right: 12px;
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #9ca3af;
+    overflow: hidden;
+}
+
+.extension-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.extension-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.extension-status {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.extension-action {
+    margin-left: 10px;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 320px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.nav-item:hover {
+    background-color: #f9fafb;
+    color: #4f46e5;
+}
+
+.nav-item.active {
+    color: #4f46e5;
+    border-top: 3px solid #4f46e5;
+    background-color: #f5f3ff;
+}

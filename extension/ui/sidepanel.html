@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lab Journal Compiler</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="Sortable.min.js"></script>
+</head>
+
+<body>
+    <!-- Dashboard View -->
+    <div id="dashboard-view" class="view-container">
+        <h2>Dashboard</h2>
+        <div id="dashboard-cards" class="cards-grid">
+            <!-- Hardcoded cards injected here -->
+        </div>
+
+        <button id="add-custom-ext-btn" class="btn btn-secondary" style="margin-top: 15px; width: 100%;">+ Add Custom Extension</button>
+        <button id="restore-defaults-btn" class="btn btn-secondary" style="margin-top: 10px; width: 100%; display: none;">Restore Default Extensions</button>
+        
+        <div id="custom-extensions-container">
+            <!-- Custom cards injected here -->
+        </div>
+
+        <button id="open-webstore-btn" class="btn btn-primary" style="margin-top: 15px; width: 100%;">Open Chrome Web Store</button>
+    </div>
+
+    <!-- Add Custom Extension Modal (Hidden by default) -->
+    <div id="custom-ext-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>Add Custom Extension</h3>
+            <select id="custom-ext-select" style="width: 100%; margin-bottom: 15px; padding: 8px;">
+                <option value="">Select an installed extension...</option>
+            </select>
+            <div style="display: flex; gap: 10px;">
+                <button id="save-custom-ext" class="btn btn-primary" style="flex: 1;">Save</button>
+                <button id="cancel-custom-ext" class="btn btn-danger" style="flex: 1;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compiler View -->
+    <div id="compiler-view" class="view-container" style="display: none;">
+        <h2>Compilation & Assembly</h2>
+
+        <div class="actions-group">
+            <label for="title-page-upload" class="btn btn-secondary">
+                + Add Title Page
+            </label>
+            <input type="file" id="title-page-upload" accept="image/*,.pdf" style="display: none;">
+
+            <label for="custom-file-upload" class="btn btn-secondary">
+                + Add Local File
+            </label>
+            <input type="file" id="custom-file-upload" accept=".docx,.pptx,.pdf,.jpg,.png" style="display: none;">
+            <button id="clear-queue" class="btn btn-danger">Clear</button>
+        </div>
+
+        <div class="queue-container">
+            <ul id="queue-list">
+                <!-- Items will be injected here -->
+            </ul>
+        </div>
+
+        <div class="compile-section">
+            <button id="compile-btn" class="btn btn-primary" disabled>Compile</button>
+            <div id="compile-status"></div>
+        </div>
+    </div> <!-- End compiler-view -->
+
+    <!-- Bottom Navigation -->
+    <div id="bottom-nav" class="bottom-nav">
+        <div class="nav-item active" data-target="dashboard">Dashboard</div>
+        <div class="nav-item" data-target="compiler">Compiler</div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="compile.js"></script>
+    <script type="module" src="dashboard.js"></script>
+    <script src="components/bottom-nav.js"></script>
+    <script src="view-router.js"></script>
+</body>
+
+</html>
