@@ -171,10 +171,20 @@
             });
 
             if (selectedItems.length > 0) {
-                chrome.runtime.sendMessage({
-                    type: 'OPEN_COMPILER_VIEW',
-                    payload: { selectedAssignments: selectedItems }
-                });
+                // Check if the extension was updated and context is invalidated
+                if (typeof chrome.runtime?.id === 'undefined') {
+                    alert('The Lab Journal extension was updated in the background.\n\nPlease REFRESH this LMS webpage (press F5) to continue using the compiler.');
+                    return;
+                }
+
+                try {
+                    chrome.runtime.sendMessage({
+                        type: 'OPEN_COMPILER_VIEW',
+                        payload: { selectedAssignments: selectedItems }
+                    });
+                } catch (e) {
+                    alert('The Lab Journal extension was updated in the background.\n\nPlease REFRESH this LMS webpage (press F5) to continue using the compiler.');
+                }
             } else {
                 alert('No items selected.');
             }

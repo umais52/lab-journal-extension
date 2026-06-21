@@ -9,6 +9,23 @@
 </head>
 
 <body>
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="btn btn-secondary"
+        style="position: absolute; top: 15px; right: 20px; padding: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; z-index: 1000; border-radius: 50%;">
+        <!-- Moon Icon (Default) -->
+        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            viewBox="0 0 16 16">
+            <path
+                d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+        </svg>
+        <!-- Sun Icon (Hidden by Default) -->
+        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            viewBox="0 0 16 16" style="display: none;">
+            <path
+                d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+        </svg>
+    </button>
+
     <!-- Dashboard View -->
     <div id="dashboard-view" class="view-container">
         <h2>Dashboard</h2>
@@ -16,14 +33,23 @@
             <!-- Hardcoded cards injected here -->
         </div>
 
-        <button id="add-custom-ext-btn" class="btn btn-secondary" style="margin-top: 15px; width: 100%;">+ Add Custom Extension</button>
-        <button id="restore-defaults-btn" class="btn btn-secondary" style="margin-top: 10px; width: 100%; display: none;">Restore Default Extensions</button>
-        
+        <button id="add-custom-ext-btn" class="btn btn-secondary" style="margin-top: 15px; width: 100%;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/></svg>
+            Add Custom Extension
+        </button>
+        <button id="restore-defaults-btn" class="btn btn-secondary"
+            style="margin-top: 10px; width: 100%; display: none;">Restore Default Extensions</button>
+
         <div id="custom-extensions-container">
             <!-- Custom cards injected here -->
         </div>
 
-        <button id="open-webstore-btn" class="btn btn-primary" style="margin-top: 15px; width: 100%;">Open Chrome Web Store</button>
+        <button id="open-webstore-btn" class="btn btn-primary" style="margin-top: 15px; width: 100%;">Open Chrome Web
+            Store</button>
+            
+        <div style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: #6b7280;">
+            Feedback: <a href="https://www.linkedin.com/in/umais-wahab" target="_blank" style="color: #4f46e5; text-decoration: none; font-weight: 600;">Umais Wahab</a>
+        </div>
     </div>
 
     <!-- Add Custom Extension Modal (Hidden by default) -->
@@ -42,19 +68,23 @@
 
     <!-- Compiler View -->
     <div id="compiler-view" class="view-container" style="display: none;">
-        <h2>Compilation & Assembly</h2>
+        <h2>Compiler</h2>
 
         <div class="actions-group">
-            <label for="title-page-upload" class="btn btn-secondary">
-                + Add Title Page
+            <label for="title-page-upload" class="btn btn-secondary" title="Add Title Page">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/></svg>
+                Add Title Page
             </label>
             <input type="file" id="title-page-upload" accept="image/*,.pdf" style="display: none;">
 
-            <label for="custom-file-upload" class="btn btn-secondary">
-                + Add Local File
+            <label for="custom-file-upload" class="btn btn-secondary" title="Add Local File">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707V11.5z"/><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/></svg>
+                Add Local File
             </label>
             <input type="file" id="custom-file-upload" accept=".docx,.pptx,.pdf,.jpg,.png" style="display: none;">
-            <button id="clear-queue" class="btn btn-danger">Clear</button>
+            <button id="clear-queue" class="btn btn-danger btn-icon-only" title="Clear All">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+            </button>
         </div>
 
         <div class="queue-container">
@@ -77,6 +107,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="theme.js"></script>
     <script src="compile.js"></script>
     <script type="module" src="dashboard.js"></script>
     <script src="components/bottom-nav.js"></script>

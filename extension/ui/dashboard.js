@@ -40,9 +40,8 @@ function openExtensionPopup(extId, popupPath, extensionInfo, fallbackUrl) {
 
     // Get browser window bounds to position popup over the side panel
     chrome.windows.getCurrent((browserWindow) => {
-        // Side panel is on the right edge of the browser.
-        // window.innerWidth = the side panel's actual content width
-        const panelWidth = window.innerWidth + 10;
+        // Ensure popup is wide enough for extensions with fixed-width UIs (e.g. 400px)
+        const panelWidth = Math.max(window.innerWidth + 20, 380);
         const panelHeight = window.innerHeight + 40;
         const left = browserWindow.left + browserWindow.width - panelWidth;
         const top = browserWindow.top + (browserWindow.height - panelHeight);
@@ -159,13 +158,9 @@ function createExtensionCard(ext, isCustom = false) {
         extensionInfo = info;
         actionBtn.disabled = false;
         if (info) {
-            // Only update name if user hasn't set a custom one
-            if (!ext.customName) {
-                name.textContent = info.name;
-                // update fallback text in case icon fails
-                if (!icon.querySelector('img')) {
-                    icon.textContent = info.name.substring(0, 2).toUpperCase();
-                }
+            // Update fallback text in case icon fails
+            if (!icon.querySelector('img')) {
+                icon.textContent = (ext.customName || ext.name || info.name).substring(0, 2).toUpperCase();
             }
 
             // Render the official Chrome extension icon using chrome protocol
@@ -228,10 +223,10 @@ function createExtensionCard(ext, isCustom = false) {
 }
 
 async function renderDashboard() {
-    dashboardCards.innerHTML = '';
-    customExtContainer.innerHTML = '';
-
     chrome.storage.local.get(['customExtensions', 'hiddenExtensions', 'customNames'], (result) => {
+        dashboardCards.innerHTML = '';
+        customExtContainer.innerHTML = '';
+
         const custom = result.customExtensions || [];
         const hidden = result.hiddenExtensions || [];
         const customNames = result.customNames || {};
@@ -348,3 +343,11 @@ openWebstoreBtn.addEventListener('click', () => {
 
 
 document.addEventListener('DOMContentLoaded', renderDashboard);
+
+// Auto-update dashboard when extensions are installed, uninstalled, enabled, or disabled
+if (chrome.management && chrome.management.onInstalled) {
+    chrome.management.onInstalled.addListener(renderDashboard);
+    chrome.management.onUninstalled.addListener(renderDashboard);
+    chrome.management.onEnabled.addListener(renderDashboard);
+    chrome.management.onDisabled.addListener(renderDashboard);
+}
