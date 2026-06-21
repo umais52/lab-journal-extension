@@ -1,4 +1,17 @@
 // Background Service Worker
+import { HARDCODED_EXTENSIONS } from './hardcoded-extensions.js';
+
+chrome.runtime.onInstalled.addListener((details) => {
+    if (details.reason === 'install') {
+        HARDCODED_EXTENSIONS.forEach(ext => {
+            chrome.management.get(ext.id, (info) => {
+                if (chrome.runtime.lastError || !info) {
+                    chrome.tabs.create({ url: `https://chromewebstore.google.com/detail/${ext.id}` });
+                }
+            });
+        });
+    }
+});
 
 let queue = [];
 let isProcessing = false;

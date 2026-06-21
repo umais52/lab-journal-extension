@@ -12,6 +12,7 @@ const openWebstoreBtn = document.getElementById('open-webstore-btn');
 
 const customExtSelect = document.getElementById('custom-ext-select');
 
+
 async function checkInstallStatus(id) {
     return new Promise((resolve) => {
         chrome.management.get(id, (info) => {
@@ -23,6 +24,41 @@ async function checkInstallStatus(id) {
         });
     });
 }
+
+function openExtensionPopup(extId, popupPath, extensionInfo, fallbackUrl) {
+    if (!popupPath) {
+        // No popup — open fallback URL, options page, or management page
+        if (fallbackUrl) {
+            chrome.tabs.create({ url: fallbackUrl });
+        } else if (extensionInfo.optionsUrl) {
+            chrome.tabs.create({ url: extensionInfo.optionsUrl });
+        } else {
+            chrome.tabs.create({ url: `chrome://extensions/?id=${extId}` });
+        }
+        return;
+    }
+
+    // Get browser window bounds to position popup over the side panel
+    chrome.windows.getCurrent((browserWindow) => {
+        // Side panel is on the right edge of the browser.
+        // window.innerWidth = the side panel's actual content width
+        const panelWidth = window.innerWidth + 10;
+        const panelHeight = window.innerHeight + 40;
+        const left = browserWindow.left + browserWindow.width - panelWidth;
+        const top = browserWindow.top + (browserWindow.height - panelHeight);
+
+        chrome.windows.create({
+            url: `chrome-extension://${extId}/${popupPath}`,
+            type: 'popup',
+            width: panelWidth,
+            height: panelHeight,
+            left: left,
+            top: top,
+            focused: true
+        });
+    });
+}
+
 
 function createExtensionCard(ext, isCustom = false) {
     const card = document.createElement('div');
@@ -116,8 +152,11 @@ function createExtensionCard(ext, isCustom = false) {
         icon.appendChild(img);
     }
 
+    let extensionInfo = null;
+
     // Check status asynchronously
     checkInstallStatus(ext.id).then(info => {
+        extensionInfo = info;
         actionBtn.disabled = false;
         if (info) {
             // Only update name if user hasn't set a custom one
@@ -167,6 +206,21 @@ function createExtensionCard(ext, isCustom = false) {
             actionBtn.onclick = () => {
                 chrome.tabs.create({ url: `https://chromewebstore.google.com/detail/${ext.id}` });
             };
+        }
+    });
+
+    card.addEventListener('click', (e) => {
+        // Prevent click if clicking interactive elements inside the card
+        if (e.target.closest('.delete-item') || e.target.closest('.btn') || e.target.closest('span[title="Edit Name"]')) {
+            return;
+        }
+
+        if (extensionInfo) {
+            // Use configured popupPath, or 'popup.html' for custom extensions
+            const popupPath = ext.popupPath !== undefined ? ext.popupPath : 'popup.html';
+            openExtensionPopup(ext.id, popupPath, extensionInfo, ext.fallbackUrl);
+        } else {
+            chrome.tabs.create({ url: `https://chromewebstore.google.com/detail/${ext.id}` });
         }
     });
 
@@ -291,5 +345,6 @@ saveCustomExtBtn.addEventListener('click', () => {
 openWebstoreBtn.addEventListener('click', () => {
     chrome.tabs.create({ url: "https://chromewebstore.google.com/" });
 });
+
 
 document.addEventListener('DOMContentLoaded', renderDashboard);
